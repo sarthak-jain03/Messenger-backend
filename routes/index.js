@@ -12,6 +12,7 @@ const searchUserSearchbox = require("../controller/searchUserSearchbox");
 const forgotPassword = require("../controller/forgotPassword");
 const resetPassword = require("../controller/resetPassword");
 
+
 const router = express.Router();
 
 // Register user
@@ -40,5 +41,7 @@ router.post('/forgot-password', forgotPassword);
 
 // Reset password using token
 router.post('/reset-password/:token', resetPassword);
+
+
 
 module.exports = router;

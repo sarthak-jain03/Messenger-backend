@@ -17,15 +17,18 @@ const forgotPassword = async (req, res) => {
       });
     }
 
-    // Generate secure token
-    const token = crypto.randomBytes(32).toString("hex");
+    const jwt = require("jsonwebtoken");
 
-    // Save token and expiry to DB
-    user.resetToken = token;
-    user.resetTokenExpiry = Date.now() + 15 * 60 * 1000; // 15 minutes
-    await user.save();
+// instead of crypto.randomBytes:
+const token = jwt.sign(
+  { id: user._id }, 
+  process.env.JWT_SECRETKEY,
+  { expiresIn: "15m" }
+);
 
-    const resetLink = `${process.env.FRONTEND_URL}/reset-password/${token}`;
+// Don't store it in DB anymore
+const resetLink = `${process.env.FRONTEND_URL}/reset-password/${token}`;
+
 
     const transporter = nodemailer.createTransport({
       service: "Gmail",
