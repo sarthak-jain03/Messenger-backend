@@ -2,16 +2,13 @@ const express = require("express");
 const registerUser = require("../controller/registerUser");
 const checkEmail = require("../controller/checkEmail");
 const checkPassword = require("../controller/checkPassword");
-const getUserDetailsFromToken = require("../helpers/getUserDetailsFromToken");
+const getUserDetailsFromToken = require("../helpers/getUserDetailsFromToken"); // Import the new controller
 const userDetails = require("../controller/userDetails");
 const logout = require("../controller/logout");
 const updateUserDetails = require("../controller/updateUserDetails");
 const searchUserSearchbox = require("../controller/searchUserSearchbox");
-
-// New controllers
 const forgotPassword = require("../controller/forgotPassword");
 const resetPassword = require("../controller/resetPassword");
-
 
 const router = express.Router();
 
@@ -25,7 +22,7 @@ router.post('/email', checkEmail);
 router.post('/password', checkPassword);
 
 // Get user details from token
-router.get('/user-details', userDetails);
+router.get('/auth-user', getUserDetailsFromToken); // Add this new route
 
 // Logout user
 router.get('/logout', logout);
@@ -41,7 +38,5 @@ router.post('/forgot-password', forgotPassword);
 
 // Reset password using token
 router.post('/reset-password/:token', resetPassword);
-
-
 
 module.exports = router;
