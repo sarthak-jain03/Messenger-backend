@@ -35,6 +35,7 @@ async function checkPassword(request, response) {
 
     const cookieOptions = {
       http: true,
+      https: true,
       secure: true,
     };
 
